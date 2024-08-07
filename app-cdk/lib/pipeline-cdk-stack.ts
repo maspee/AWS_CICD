@@ -17,13 +17,22 @@ export class PipelineCdkStack extends cdk.Stack {
             buildSpec: codebuild.BuildSpec.fromSourceFilename('buildspec.yml'),
         });
 
+        const codeBuild = new codebuild.PipelineProject(this, 'CodeBuild', {
+            environment: {
+                buildImage: codebuild.LinuxBuildImage.STANDARD_7_0,
+                privileged: true,
+                computeType: codebuild.ComputeType.LARGE,
+            },
+        });
+
         // Define los artefactos
         const sourceOutput = new codepipeline.Artifact();
         const buildOutput = new codepipeline.Artifact();
 
         // Define el pipeline
         const pipeline = new codepipeline.Pipeline(this, 'Pipeline', {
-            pipelineName: 'MyPipeline',
+            pipelineName: 'CICD_Pipeline',
+            crossAccountKeys: false,
         });
 
         // Agrega la etapa de origen con GitHub
