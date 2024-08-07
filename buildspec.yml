@@ -13,3 +13,4 @@ phases:
     commands:
       - echo run tests...
       - CI=true npm run test
+      

@@ -13,11 +13,12 @@ export class PipelineCdkStack extends cdk.Stack {
         const githubSecret = secretsmanager.Secret.fromSecretNameV2(this, 'GitHubSecret', 'github/personal_access_token');
 
         // Crea un proyecto de CodeBuild
+        //const buildProject = new codebuild.PipelineProject(this, 'BuildProject', {
+        //  buildSpec: codebuild.BuildSpec.fromSourceFilename('buildspec.yml'),
+        //});
+
         const buildProject = new codebuild.PipelineProject(this, 'BuildProject', {
             buildSpec: codebuild.BuildSpec.fromSourceFilename('buildspec.yml'),
-        });
-
-        const codeBuild = new codebuild.PipelineProject(this, 'CodeBuild', {
             environment: {
                 buildImage: codebuild.LinuxBuildImage.STANDARD_7_0,
                 privileged: true,
@@ -49,6 +50,8 @@ export class PipelineCdkStack extends cdk.Stack {
                 }),
             ],
         });
+
+
 
         // Agrega la etapa de construcción
         pipeline.addStage({
