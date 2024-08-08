@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="1" failures="0" errors="0" time="2.042">
+    <testsuite name="src/App.test.tsx" timestamp="2024-08-08T01:28:08.728Z" hostname="LAPTOP-QEUF7V9A" tests="1" failures="0" errors="0" skipped="0" time="0.04">
+        <testcase classname="src/App.test.tsx" name="Testing Application &gt; Checking if word &apos;Vite&apos; exists in Application page" time="0.039">
+        </testcase>
+    </testsuite>
+</testsuites>

@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: latest
+      nodejs: 18
   pre_build:
     commands:
       - cd ./my-app
@@ -11,8 +11,10 @@ phases:
       - npm install
   build:
     commands:
-      - echo run tests...
-      - $env:CI="true"; npm run test:junit
+      - echo Run tests...
+      - CI=true npm run test:junit
+      - ls -la my-app
+      - cat my-app/junit.xml
             
 reports:
   jest_reports:
