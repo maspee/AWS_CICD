@@ -27,6 +27,8 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $IMAGE_REPO_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+      - printf '[{"name":"my-app","imageUri":"%s"}]' $IMAGE_REPO_URI:$IMAGE_TAG > $CODEBUILD_SRC_DIR/imagedefinitions.json
       - echo Getting ECR repository name in which the container image is pushed
       - export REPO_NAME=$(echo $IMAGE_REPO_URI | awk -F'/' '{print $2}')
       - echo Getting SHA digest of the latest image pushed
@@ -35,3 +37,5 @@ phases:
       - export IMAGE_SHA_ARN=$IMAGE_REPO_URI@$IMAGE_SHA
       - notation sign $IMAGE_SHA_ARN --plugin com.amazonaws.signer.notation.plugin --id $SIGNER_PROFILE_ARN
       - notation inspect $IMAGE_SHA_ARN
+  artifacts:
+    files: imagedefinitions.json
