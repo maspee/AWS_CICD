@@ -1,5 +1,5 @@
 {
-    "executionRoleArn": "arn:aws:iam::211125352153:role/prod-app-stack-prodFargateServiceTaskDefTaskRole114-s28Z3qutAXL0",
+    "executionRoleArn": "arn:aws:iam::211125352153:role/prod-app-stack-prodFargateServiceTaskDefExecutionRo-X4omUYN7HaPK",
     "containerDefinitions": [
         {
             "name": "my-app",
