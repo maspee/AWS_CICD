@@ -39,7 +39,9 @@ export class PipelineCdkStack extends Stack {
                 privileged: true,
                 computeType: codebuild.ComputeType.LARGE,
             },
+            buildSpec: codebuild.BuildSpec.fromSourceFilename('buildspec.yml'),
         });
+
 
         const dockerBuild = new codebuild.PipelineProject(this, 'DockerBuild', {
             environmentVariables: {
@@ -171,21 +173,21 @@ export class PipelineCdkStack extends Stack {
             deploymentConfig: codedeploy.EcsDeploymentConfig.LINEAR_10PERCENT_EVERY_1MINUTES,
             application: ecsCodeDeployApp,
         });
-        pipeline.addStage({
-            stageName: 'Deploy-Production',
-            actions: [
-                new codepipeline_actions.ManualApprovalAction({
-                    actionName: 'Approve-Prod-Deploy',
-                    runOrder: 1
-                }),
-                new codepipeline_actions.CodeDeployEcsDeployAction({
-                    actionName: 'BlueGreen-deployECS',
-                    deploymentGroup: prodEcsDeploymentGroup,
-                    appSpecTemplateInput: sourceOutput,
-                    taskDefinitionTemplateInput: sourceOutput,
-                    runOrder: 2
-                })
-            ]
-        });
+        /* pipeline.addStage({
+             stageName: 'Deploy-Production',
+             actions: [
+                 new codepipeline_actions.ManualApprovalAction({
+                     actionName: 'Approve-Prod-Deploy',
+                     runOrder: 1
+                 }),
+                 new codepipeline_actions.CodeDeployEcsDeployAction({
+                     actionName: 'BlueGreen-deployECS',
+                     deploymentGroup: prodEcsDeploymentGroup,
+                     appSpecTemplateInput: sourceOutput,
+                     taskDefinitionTemplateInput: sourceOutput,
+                     runOrder: 2
+                 })
+             ]
+         });*/
     }
 }

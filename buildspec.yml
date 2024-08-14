@@ -3,15 +3,19 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18
+      nodejs: 20
+    commands:
+      - echo Installing npm packages...
+      - cd ./my-app
+      - npm install
+
   pre_build:
     commands:
-      - cd ./my-app
-      - echo Installing npm packages...
-      - npm install
+      - echo "Preparing for build..."
+
   build:
     commands:
-      - echo "Run tests...""
+      - echo "Running tests..."
       - CI=true npm run test:junit
       - ls -la my-app
       - cat my-app/junit.xml
